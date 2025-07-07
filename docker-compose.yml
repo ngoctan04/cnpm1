@@ -1,0 +1,84 @@
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: hotel_booking_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: hotel_booking
+      MYSQL_USER: hotel_user
+      MYSQL_PASSWORD: hotel_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - hotel_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Backend API
+  backend:
+    build: ./backend
+    container_name: hotel_booking_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_NAME: hotel_booking
+      DATABASE_USER: hotel_user
+      DATABASE_PASSWORD: hotel_password
+      SECRET_KEY: your-secret-key-here-change-in-production-make-it-long-and-random
+      GOOGLE_DRIVE_CREDENTIALS: /app/gdrive/client_secret.json
+      GDRIVE_PARENT_HOTELS: "1f0ROEV4ZEi8C3Daqx2l9gxjgq-pogdIJ"
+      GDRIVE_PARENT_ROOMS: "1I7tmYHuAgHYjZxGcT9xSKjEkdWogqe6Q"
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - media_files:/app/media
+    networks:
+      - hotel_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: http://localhost:8000
+    container_name: hotel_booking_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - hotel_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  mysql_data:
+    driver: local
+  media_files:
+    driver: local
+
+networks:
+  hotel_network:
+    driver: bridge 
