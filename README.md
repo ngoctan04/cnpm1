@@ -55,8 +55,6 @@ Hệ thống đặt phòng khách sạn được xây dựng với kiến trúc 
 
 ### 💳 **Thanh Toán**
 - [x] Tạo và xử lý thanh toán
-- [x] Hỗ trợ nhiều phương thức
-- [x] Theo dõi trạng thái thanh toán
 - [x] Báo cáo doanh thu
 
 ### 📊 **Dashboard & Báo Cáo**
