@@ -2,7 +2,7 @@ services:
   # MySQL Database
   mysql:
     image: mysql:8.0
-    container_name: hotel_booking_mysql
+    container_name: hotel_booking_mysql_v1
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -24,7 +24,7 @@ services:
   # Backend API
   backend:
     build: ./backend
-    container_name: hotel_booking_backend
+    container_name: hotel_booking_backend_v1
     restart: unless-stopped
     environment:
       DATABASE_HOST: mysql
@@ -59,7 +59,7 @@ services:
       context: ./frontend
       args:
         REACT_APP_API_URL: http://localhost:8000
-    container_name: hotel_booking_frontend
+    container_name: hotel_booking_frontend_v1
     restart: unless-stopped
     ports:
       - "3000:80"
