@@ -26,7 +26,7 @@ ALTER TABLE hotels AUTO_INCREMENT = 1;
 -- ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- Hiển thị thông báo
-SELECT 'Đã xóa tất cả dữ liệu trong database!' AS message;
+SELECT 'Đã xóa  tất cả dữ liệu trong database!' AS message;
 SELECT 'Bảng payments: ' AS table_name, COUNT(*) AS count FROM payments
 UNION ALL
 SELECT 'Bảng bookings: ', COUNT(*) FROM bookings
