@@ -473,7 +473,7 @@ Hệ thống đặt phòng khách sạn đã được hoàn thiện với đầy
 - [x] **Testing**: Demo accounts & data
 
 ### 🚀 **Ready to Use**
-Chạy một câu lệnh để có hệ thống hoàn chỉnh:
+Chạy một câu lệnh để có  hệ thống hoàn chỉnh:
 ```bash
 docker-compose up --build
 ```
