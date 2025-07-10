@@ -1,6 +1,6 @@
 # 🏨 Hệ Thống Đặt Phòng Khách Sạn
 
-Một hệ thống đặt phòng khách sạn hoàn chỉnh với Frontend React và Backend FastAPI, tích hợp Docker và MySQL.
+Một hệ thống đặt phòng khách sạn hoàn chỉnh với Frontend React và Backend FastAPI, tích hợp Docker và MySQL
 
 ## 📋 Mục Lục
 
