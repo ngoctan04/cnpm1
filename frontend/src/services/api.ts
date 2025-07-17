@@ -118,13 +118,13 @@ export const hotelsAPI = {
     search?: string;
   }) => {
     const response = await api.get('/hotels/', { params });
-    return response.data;
+    return response.data.data; // Backend returns {code, message, data}
   },
 
   // Lấy khách sạn theo ID
   getById: async (hotelId: number): Promise<Hotel> => {
     const response = await api.get(`/hotels/${hotelId}`);
-    return response.data;
+    return response.data.data; // Backend returns {code, message, data}
   },
 };
 
