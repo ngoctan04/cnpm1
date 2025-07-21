@@ -28,5 +28,6 @@ jobs:
 
       - name: Run tests
         working-directory: ./backend
-        run: |
-          pytest tests/ --disable-warnings -v
+        run: pytest ./tests --disable-warnings -v
+working-directory: ${{ github.workspace }}
+
