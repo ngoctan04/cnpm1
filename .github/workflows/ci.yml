@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   test:
@@ -14,18 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: 3.11
 
       - name: Install dependencies
         run: |
+          cd backend
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-        working-directory: backend
 
       - name: Run tests
-        run: pytest tests --disable-warnings -v
+        run: |
+          export PYTHONPATH=.
+          pytest tests --disable-warnings -v
         working-directory: backend

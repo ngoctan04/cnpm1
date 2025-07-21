@@ -1,5 +1,6 @@
-import os
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 if 'pytest' in sys.modules:
     # Force load .env.test for testing
